@@ -6,8 +6,9 @@ use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
 {
-
-     
+    /**
+     * Middleware global que se ejecuta en todas las solicitudes.
+     */
     protected $middleware = [
         // \App\Http\Middleware\TrustHosts::class,
         \App\Http\Middleware\TrustProxies::class,
@@ -38,7 +39,7 @@ class Kernel extends HttpKernel
     ];
 
     /**
-     * Alias de middleware para usarlos por nombre.
+     * Alias de middleware (pueden usarse en rutas o controladores).
      */
     protected $middlewareAliases = [
         'auth' => \App\Http\Middleware\Authenticate::class,
@@ -52,5 +53,9 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+
+        // 🔹 Middleware personalizados
+        'jwt.verify' => \App\Http\Middleware\JwtMiddleware::class,
+        'role' => \App\Http\Middleware\RoleMiddleware::class,
     ];
 }
